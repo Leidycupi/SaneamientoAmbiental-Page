@@ -385,7 +385,7 @@
         <p class="section-desc">Gestiona el perfil del equipo. Haz clic en la foto para elegir un avatar inclusivo o subir tu propia imagen.</p>
 
         <div class="team-grid">
-            <!-- Card 1: ACTUALIZADA PARA LEIDY CAROLINA ROJAS CUPITRA -->
+            <!-- Card 1: LEIDY CAROLINA ROJAS CUPITRA -->
             <div class="team-card" id="card-1">
                 <div class="card-header">
                     <div class="card-photo-wrapper" onclick="openAvatarModal('photo-img-1')">
@@ -403,7 +403,6 @@
                 </div>
                 <div class="card-footer">
                     <div class="cv-actions">
-                        <!-- VINCULADO AL PDF ADJUNTO -->
                         <a href="HojadeVida..pdf_2025_4_1.pdf" class="download-cv active" id="download-link-1" download="HojadeVida_Leidy_Carolina.pdf"><i class="fas fa-file-pdf"></i> Descargar CV</a>
                         <div class="cv-controls">
                             <button class="btn-delete-cv" id="delete-cv-1" onclick="deleteCV('download-link-1', 'cv-input-1', 'delete-cv-1')" title="Eliminar CV" style="display:flex;"><i class="fas fa-trash"></i></button>
@@ -415,27 +414,27 @@
                     </div>
                 </div>
             </div>
-            <!-- Card 2 -->
+            <!-- Card 2: ANDREA VANESSA PORTELA -->
             <div class="team-card" id="card-2">
                 <div class="card-header">
                     <div class="card-photo-wrapper" onclick="openAvatarModal('photo-img-2')">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Aneka&mouth=smile&eyebrows=default&eyes=happy" id="photo-img-2">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Milo&mouth=smile&eyebrows=default&eyes=happy" id="photo-img-2" alt="Andrea Vanessa Portela">
                     </div>
-                    <h3 contenteditable="true">Ana Lucía Ortiz</h3>
-                    <p contenteditable="true">Ingeniera Sanitaria</p>
+                    <h3 contenteditable="true">Andrea Vanessa Portela</h3>
+                    <p contenteditable="true">Gestión de obras civiles</p>
                 </div>
                 <div>
                     <div class="skills-header"><span class="skills-label">Skills</span><button class="btn-add-skill" onclick="promptAndAddSkill('skills-container-2')">+</button></div>
                     <div class="skills" id="skills-container-2">
-                        <span class="skill-tag">EPANET <i class="fas fa-times remove-skill" onclick="this.parentElement.remove()"></i></span>
-                        <span class="skill-tag">Saneamiento <i class="fas fa-times remove-skill" onclick="this.parentElement.remove()"></i></span>
+                        <span class="skill-tag">Inglés <i class="fas fa-times remove-skill" onclick="this.parentElement.remove()"></i></span>
+                        <span class="skill-tag">Manejo de TICs <i class="fas fa-times remove-skill" onclick="this.parentElement.remove()"></i></span>
                     </div>
                 </div>
                 <div class="card-footer">
                     <div class="cv-actions">
-                        <a href="#" class="download-cv" id="download-link-2"><i class="fas fa-download"></i> Descargar</a>
+                        <a href="CV Andrea_Portela2025.pdf" class="download-cv active" id="download-link-2" download="CV_Andrea_Portela.pdf"><i class="fas fa-file-pdf"></i> Descargar</a>
                         <div class="cv-controls">
-                            <button class="btn-delete-cv" id="delete-cv-2" onclick="deleteCV('download-link-2', 'cv-input-2', 'delete-cv-2')" title="Eliminar CV"><i class="fas fa-trash"></i></button>
+                            <button class="btn-delete-cv" id="delete-cv-2" onclick="deleteCV('download-link-2', 'cv-input-2', 'delete-cv-2')" title="Eliminar CV" style="display:flex;"><i class="fas fa-trash"></i></button>
                             <div style="position:relative;">
                                 <button class="btn-upload" onclick="document.getElementById('cv-input-2').click()"><i class="fas fa-upload"></i> Subir</button>
                                 <input type="file" id="cv-input-2" hidden accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" onchange="handleCVUpload(this, 'download-link-2', 'delete-cv-2')">
@@ -800,23 +799,44 @@
 
         // --- AI (Dynamic Summary) ---
         function generateSummary() {
-            const statusText = document.getElementById('ai-status'); const resultText = document.getElementById('ai-result'); const dot = document.querySelector('.status-dot');
-            statusText.textContent = "Procesando..."; statusText.style.color = "#38bdf8"; dot.style.backgroundColor = "#38bdf8";
+            const statusText = document.getElementById('ai-status'); 
+            const resultText = document.getElementById('ai-result'); 
+            const dot = document.querySelector('.status-dot');
+            
+            statusText.textContent = "Procesando..."; 
+            statusText.style.color = "#38bdf8"; 
+            dot.style.backgroundColor = "#38bdf8";
             resultText.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Analizando entradas de bitácora...';
+            
             setTimeout(() => {
-                statusText.textContent = "Completado"; statusText.style.color = "#10b981"; dot.style.backgroundColor = "#10b981";
+                statusText.textContent = "Completado"; 
+                statusText.style.color = "#10b981"; 
+                dot.style.backgroundColor = "#10b981";
+                
                 const entries = document.querySelectorAll('.bitacora-card');
-                if (entries.length === 0) { resultText.innerHTML = "No se encontraron entradas para analizar."; return; }
+                if (entries.length === 0) { 
+                    resultText.innerHTML = "No se encontraron entradas para analizar."; 
+                    return; 
+                }
+                
                 let summaryHTML = '<strong style="color: var(--text-accent);">Informe de Progreso Técnico:</strong><br><br>';
-                entries.forEach((card, index) => {
+                entries.forEach((card) => {
                     const date = card.querySelector('.bitacora-date').innerText.trim() || "Sin fecha";
                     const title = card.querySelector('h3').innerText.trim() || "Sin título";
                     const content = card.querySelector('p').innerText.trim() || "Sin contenido";
                     const shortContent = content.length > 80 ? content.substring(0, 80) + "..." : content;
-                    summaryHTML += `<div style="margin-bottom: 12px; padding-left: 10px; border-left: 3px solid var(--text-accent);"><span style="font-size: 0.75em; color: var(--text-muted); text-transform: uppercase;">${date}</span><br><span style="font-weight: 600; color: var(--text-main);">${title}</span><br><span style="font-size: 0.9em; color: var(--text-muted); font-style: italic;">"${shortContent}"</span></div>`;
+                    
+                    summaryHTML += `
+                        <div style="margin-bottom: 12px; padding-left: 10px; border-left: 3px solid var(--text-accent);">
+                            <span style="font-size: 0.75em; color: var(--text-muted); text-transform: uppercase;">${date}</span><br>
+                            <span style="font-weight: 600; color: var(--text-main);">${title}</span><br>
+                            <span style="font-size: 0.9em; color: var(--text-muted); font-style: italic;">"${shortContent}"</span>
+                        </div>`;
                 });
+                
                 summaryHTML += `<br><span style="font-size: 0.8em; color: #10b981;"><i class="fas fa-check-circle"></i> Análisis completado. ${entries.length} sesiones registradas.</span>`;
-                resultText.style.fontStyle = "normal"; resultText.innerHTML = summaryHTML;
+                resultText.style.fontStyle = "normal"; 
+                resultText.innerHTML = summaryHTML;
             }, 2000);
         }
 
