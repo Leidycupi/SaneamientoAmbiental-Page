@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VÉRTICE | Saneamiento Ambiental</title>
+    <!-- Fuentes: Inter y Pacifico -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- VARIABLES DE TEMA --- */
+        :root {
+            /* MODO OSCURO */
+            --bg-body: #030303;
+            --bg-panel: #1e293b;      
+            --bg-section-alt: #0a0a0a; 
+            
+            --text-main: #ffffff;     
+            --text-muted: #94a3b8;    
+            --text-accent: #38bdf8;   
+
+            --border-color: #333333;  
+            --accent-pill: #0f172a;   
+            
+            --btn-primary-bg: #ffffff;
+            --btn-primary-text: #000000;
+            
+            --nav-bg: rgba(3, 3, 3, 0.95);
+            
+            /* Colores de Formas */
+            --shape-indigo: rgba(99, 102, 241, 0.3);
+            --shape-rose: rgba(244, 63, 94, 0.3);
+            --shape-violet: rgba(139, 92, 246, 0.3);
+            --shape-emerald: rgba(16, 185, 129, 0.3);
+            --shape-amber: rgba(245, 158, 11, 0.3);
+            --shape-border: rgba(255,255,255,0.1);
+            
+            /* Gradientes */
+            --title-gradient-1: linear-gradient(to bottom, #ffffff, rgba(255,255,255,0.7));
+            --title-gradient-2: linear-gradient(to right, #a5b4fc, #ffffff, #fda4af);
+
+            /* Sombras 3D */
+            --card-3d-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        /* MODO CLARO */
+        [data-theme="light"] {
+            --bg-body: #ffffff;
+            --bg-panel: #f1f5f9;      
+            --bg-section-alt: #f8fafc; 
+            
+            --text-main: #0f172a;     
+            --text-muted: #475569;    
+            --text-accent: #0284c7;   
+
+            --border-color: #e2e8f0;  
+            --accent-pill: #e2e8f0;
+            
+            --btn-primary-bg: #0f172a; 
+            --btn-primary-text: #ffffff;
+            
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            
+            --shape-indigo: rgba(79, 70, 229, 0.6);
+            --shape-rose: rgba(225, 29, 72, 0.6);
+            --shape-violet: rgba(124, 58, 237, 0.6);
+            --shape-emerald: rgba(5, 150, 105, 0.6);
+            --shape-amber: rgba(217, 119, 6, 0.6);
+            --shape-border: rgba(0,0,0,0.1);
+
+            --title-gradient-1: linear-gradient(to bottom, #1e293b, #334155);
+            --title-gradient-2: linear-gradient(to right, #4f46e5, #0f172a, #be123c);
+            
+            --card-3d-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%;
+            background-color: var(--nav-bg); color: var(--text-main); position: fixed; width: 100%; top: 0; z-index: 1000;
+            border-bottom: 1px solid var(--border-color); backdrop-filter: blur(10px); transition: all 0.3s ease;
+        }
+        
+        .brand { display: flex; align-items: center; gap: 12px; }
+        
+        .logo-img {
+            height: 48px; width: 48px; object-fit: contain;
+            background-color: white; border-radius: 50%; padding: 4px; box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .logo-fallback {
+            height: 48px; width: 48px; background-color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; color: #22c55e; font-size: 1.5rem; box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .logo-text { font-weight: 800; font-size: 1.25rem; letter-spacing: 1px; text-transform: uppercase; color: var(--text-main); font-family: 'Inter', sans-serif; }
+
+        .nav-actions { display: flex; align-items: center; gap: 2rem; }
+        .nav-links { display: flex; gap: 2rem; font-size: 0.9rem; font-weight: 500; }
+        .nav-links a { opacity: 0.7; color: var(--text-main); cursor: pointer; transition: 0.2s; }
+        .nav-links a:hover { opacity: 1; color: var(--text-accent); }
+        .theme-toggle-btn {
+            background: transparent; border: 1px solid var(--border-color); color: var(--text-main);
+            width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: 0.3s;
+        }
+        .theme-toggle-btn:hover { background-color: var(--bg-panel); }
+
+        /* --- SHAPE HERO --- */
+        .hero {
+            background-color: var(--bg-body); height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            position: relative; overflow: hidden; padding: 0 5%; transition: background-color 0.3s ease;
+        }
+        .hero-bg-blur {
+            position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, var(--shape-indigo), transparent 70%);
+            filter: blur(100px); pointer-events: none; z-index: 0; opacity: 0.2;
+        }
+        .hero-shapes { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
+        .elegant-shape { position: absolute; opacity: 0; animation: shape-enter 1.5s cubic-bezier(0.23, 0.86, 0.39, 0.96) forwards; will-change: transform; }
+        .shape-content {
+            width: 100%; height: 100%; border-radius: inherit; backdrop-filter: blur(2px); border: 1px solid var(--shape-border);
+            box-shadow: 0 4px 20px -2px rgba(0,0,0,0.1); animation: shape-float 8s ease-in-out infinite;
+        }
+        .shape-indigo .shape-content { background: linear-gradient(to bottom right, var(--shape-indigo), transparent); }
+        .shape-rose .shape-content { background: linear-gradient(to bottom right, var(--shape-rose), transparent); }
+        .shape-violet .shape-content { background: linear-gradient(to bottom right, var(--shape-violet), transparent); }
+        .shape-emerald .shape-content { background: linear-gradient(to bottom right, var(--shape-emerald), transparent); }
+        .shape-amber .shape-content { background: linear-gradient(to bottom right, var(--shape-amber), transparent); }
+
+        @keyframes shape-enter { from { opacity: 0; transform: translateY(100px) rotate(var(--rot-start)); } to { opacity: 1; transform: translateY(0) rotate(var(--rot-end)); } }
+        @keyframes shape-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+
+        .hero-content { position: relative; z-index: 10; text-align: center; max-width: 900px; animation: content-enter 1s ease-out 0.5s forwards; opacity: 0; transform: translateY(30px); }
+        @keyframes content-enter { to { opacity: 1; transform: translateY(0); } }
+        .font-pacifico { font-family: 'Pacifico', cursive; }
+        .hero-title { font-size: 3.5rem; line-height: 1.2; font-weight: 700; margin-bottom: 2rem; letter-spacing: -0.02em; }
+        .title-line-1 { background: var(--title-gradient-1); -webkit-background-clip: text; color: transparent; display: block; margin-bottom: 0.5rem; }
+        .title-line-2 { background: var(--title-gradient-2); -webkit-background-clip: text; color: transparent; font-size: 4.5rem; padding-right: 0.2em; padding-bottom: 0.1em; display: inline-block; }
+        .hero-subtitle { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 3rem; font-weight: 300; letter-spacing: 0.02em; }
+        .hero-buttons { display: flex; gap: 1.5rem; align-items: center; justify-content: center; }
+        .btn-hero-primary {
+            background-color: var(--btn-primary-bg); color: var(--btn-primary-text); padding: 14px 32px; border-radius: 50px; font-weight: 600; font-size: 0.95rem;
+            transition: 0.3s; cursor: pointer; text-align: center; border: none; box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .btn-hero-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 30px rgba(0,0,0,0.15); }
+        .btn-hero-link { color: var(--text-main); font-weight: 500; display: flex; align-items: center; gap: 8px; transition: 0.3s; cursor: pointer; opacity: 0.8; }
+        .btn-hero-link:hover { opacity: 1; gap: 12px; color: var(--text-accent); }
+        .hero-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 20; background: linear-gradient(to top, var(--bg-body), transparent 20%); }
+
+        /* --- SECTION BASE & SHAPES REUSE --- */
+        .team-section, .bitacora-section {
+            background-color: var(--bg-section-alt); padding: 5rem 5%; position: relative; overflow: hidden; transition: background-color 0.3s ease;
+        }
+        .section-shapes { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+        .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-main); position: relative; z-index: 10; text-align: center; }
+        .section-desc { color: var(--text-muted); margin-bottom: 4rem; max-width: 600px; position: relative; z-index: 10; text-align: center; margin-left: auto; margin-right: auto; }
+
+        /* --- TEAM GRID --- */
+        .team-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 2rem; 
+            position: relative; 
+            z-index: 10; 
+        }
+
+        .team-card {
+            background: var(--bg-panel); 
+            border: 1px solid var(--border-color); 
+            border-radius: 16px; 
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+            display: flex; flex-direction: column; justify-content: space-between;
+            min-height: 440px; 
+            transition: 0.3s ease-out;
+            backdrop-filter: blur(10px);
+            background: rgba(30, 41, 59, 0.6); 
+        }
+        [data-theme="light"] .team-card { background: rgba(255, 255, 255, 0.85); }
+        
+        .team-card:hover { 
+            transform: translateY(-5px); 
+            border-color: var(--text-accent); 
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.3);
+        }
+
+        .card-photo-wrapper { position: relative; width: 100px; height: 100px; margin: 0 auto 1.5rem; border-radius: 50%; border: 3px solid var(--border-color); background-color: var(--bg-body); overflow: hidden; cursor: pointer; }
+        .card-photo-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
+        .card-photo-wrapper:hover img { opacity: 0.8; }
+        .card-header { text-align: center; }
+        [contenteditable="true"] { outline: none; border-bottom: 1px dashed transparent; transition: 0.2s; }
+        [contenteditable="true"]:hover { border-bottom-color: var(--text-accent); }
+        .skills-header { display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 0.5rem; }
+        .skills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 2rem; justify-content: center; }
+        .skill-tag { background-color: var(--accent-pill); color: var(--text-muted); padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; border: 1px solid var(--border-color); display: inline-flex; align-items: center; gap: 6px; }
+        .skill-tag .remove-skill { font-size: 0.8em; opacity: 0.5; cursor: pointer; }
+        .skill-tag .remove-skill:hover { opacity: 1; color: #ef4444; }
+        .btn-add-skill { background: none; border: 1px dashed var(--text-muted); color: var(--text-muted); border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.8rem; }
+        .card-footer { display: flex; flex-direction: column; gap: 10px; padding-top: 1rem; border-top: 1px solid var(--border-color); }
+        .cv-actions { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .cv-controls { display: flex; align-items: center; gap: 8px; }
+        .btn-upload { border: 1px dashed var(--text-muted); color: var(--text-muted); background-color: transparent; padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+        .download-cv { font-size: 0.9rem; font-weight: 600; color: var(--text-main); display: flex; align-items: center; gap: 6px; opacity: 0.5; pointer-events: none; }
+        .download-cv.active { opacity: 1; pointer-events: auto; color: var(--text-accent); }
+        .btn-delete-cv { background: transparent; border: 1px solid #ef4444; color: #ef4444; width: 28px; height: 28px; border-radius: 6px; display: none; align-items: center; justify-content: center; cursor: pointer; font-size: 0.8rem; }
+
+        /* --- BITÁCORA GRID --- */
+        .bitacora-container { position: relative; z-index: 10; max-width: 800px; margin: 0 auto; }
+        .bitacora-entry-wrapper { margin-bottom: 2rem; perspective: 1000px; }
+        .bitacora-card { 
+            background: rgba(30, 41, 59, 0.6); padding: 2.5rem; border-radius: 12px; border: 1px solid var(--border-color); border-left: 4px solid var(--text-accent); position: relative; backdrop-filter: blur(5px); transform-style: preserve-3d; transition: all 0.3s ease; transform-origin: center center;
+        }
+        [data-theme="light"] .bitacora-card { background: rgba(255, 255, 255, 0.85); }
+        .bitacora-card.is-saved { box-shadow: var(--card-3d-shadow); border-color: var(--text-accent); }
+        .bitacora-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; }
+        .bitacora-date { color: var(--text-accent); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.5px; cursor: text; }
+        .btn-delete-entry { background: none; border: none; color: var(--text-muted); cursor: pointer; opacity: 0.7; }
+        .btn-delete-entry:hover { color: #ef4444; opacity: 1; }
+        .bitacora-actions { display: flex; gap: 8px; }
+        .btn-action-icon { background: transparent; border: 1px solid var(--border-color); color: var(--text-muted); width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; font-size: 0.8rem; }
+        .btn-action-icon:hover { color: var(--text-main); border-color: var(--text-main); }
+        .btn-save:hover { background: rgba(16, 185, 129, 0.1); color: #10b981; border-color: #10b981; }
+        .btn-edit:hover { background: rgba(56, 189, 248, 0.1); color: #38bdf8; border-color: #38bdf8; }
+        .btn-delete:hover { background: rgba(239, 68, 68, 0.1); color: #ef4444; border-color: #ef4444; }
+
+        .evidence-container { margin-top: 1.5rem; border-top: 1px solid var(--border-color); padding-top: 1rem; transform: translateZ(20px); }
+        .evidence-preview { width: 100%; height: 220px; background-color: var(--bg-body); border: 2px dashed var(--border-color); border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; overflow: hidden; position: relative; }
+        .evidence-preview img { width: 100%; height: 100%; object-fit: cover; display: none; }
+        .evidence-preview.has-image img { display: block; }
+        .evidence-placeholder { display: flex; flex-direction: column; align-items: center; gap: 10px; color: var(--text-muted); pointer-events: none; }
+        .evidence-preview.has-image .evidence-placeholder { display: none; }
+        .btn-add-entry { background-color: transparent; border: 2px dashed var(--border-color); color: var(--text-muted); padding: 1rem 2rem; border-radius: 12px; cursor: pointer; width: 100%; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 1rem; transition: 0.3s; position: relative; z-index: 10; }
+        .btn-add-entry:hover { border-color: var(--text-accent); color: var(--text-accent); background-color: rgba(56, 189, 248, 0.05); }
+
+        /* --- AI SECTION (3D + STARFIELD) --- */
+        .ai-section { 
+            background-color: var(--bg-body); 
+            color: var(--text-main); padding: 5rem 5%; border-top: 1px solid var(--border-color); 
+            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; transition: background-color 0.3s ease; 
+            position: relative; overflow: hidden;
+        }
+        #starfield-canvas { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+        .ai-badge { background: rgba(56, 189, 248, 0.1); color: var(--text-accent); border: 1px solid var(--text-accent); padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-bottom: 1.5rem; display: inline-block; position: relative; z-index: 10; }
+        .btn-ai { background: transparent; border: 1px solid var(--border-color); color: var(--text-main); padding: 12px 24px; font-weight: 600; cursor: pointer; border-radius: 8px; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
+        .btn-ai:hover { background: var(--bg-panel); border-color: var(--text-accent); }
+        
+        .card-3d-wrap { perspective: 1000px; display: flex; justify-content: center; position: relative; z-index: 10; }
+        .ai-card-display { 
+            background: rgba(30, 41, 59, 0.7); border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem; min-height: 250px; width: 100%; 
+            transform-style: preserve-3d; transition: transform 0.1s ease-out, box-shadow 0.2s ease; will-change: transform; 
+            backdrop-filter: blur(8px); 
+        }
+        [data-theme="light"] .ai-card-display { background: rgba(255, 255, 255, 0.85); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .card-3d-wrap:hover .ai-card-display { box-shadow: 0 20px 60px rgba(56, 189, 248, 0.2); border-color: var(--text-accent); }
+        .status-indicator { transform: translateZ(30px); display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; }
+        .status-dot { height: 8px; width: 8px; background-color: #10b981; border-radius: 50%; display: inline-block; }
+        .ai-result-text { margin-top: 2rem; color: var(--text-muted); font-style: italic; font-size: 0.95rem; transform: translateZ(50px); }
+
+        /* --- MODAL --- */
+        .avatar-modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+        .avatar-modal-content { background-color: var(--bg-panel); padding: 2rem; border-radius: 16px; width: 90%; max-width: 550px; border: 1px solid var(--border-color); position: relative; max-height: 85vh; overflow-y: auto; }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); }
+        .avatar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 15px; margin-top: 1.5rem; }
+        .avatar-option { width: 60px; height: 60px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; background: var(--bg-body); overflow: hidden; transition: 0.2s; }
+        .avatar-option:hover { transform: scale(1.1); border-color: var(--text-accent); }
+        .avatar-option img { width: 100%; height: 100%; object-fit: cover; }
+        .upload-circle-btn { width: 60px; height: 60px; border-radius: 50%; border: 2px dashed var(--text-muted); display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-muted); transition: 0.3s; margin: 0 auto; }
+        .upload-circle-btn:hover { border-color: var(--text-accent); color: var(--text-accent); }
+
+        /* --- FOOTER --- */
+        footer { background-color: #000000; color: white; padding: 4rem 5%; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2rem; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+        .social-icons { display: flex; gap: 1rem; align-items: center; }
+        .social-btn { width: 36px; height: 36px; background: #1e293b; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #94a3b8; transition: 0.3s; }
+        .social-btn:hover { background: var(--text-accent); color: #0f172a; }
+
+        @media (max-width: 1024px) {
+            .hero-title { font-size: 3rem; }
+            .title-line-2 { font-size: 3.5rem; }
+            .section-title { font-size: 1.75rem; }
+            .team-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+            .ai-section { gap: 2rem; padding: 4rem 5%; }
+        }
+        @media (max-width: 768px) {
+            .navbar { padding: 0.8rem 1rem; }
+            .nav-links { display: none; }
+            .hero { padding-top: 60px; min-height: auto; height: auto; padding-bottom: 3rem; }
+            .hero-title { font-size: 2.2rem; }
+            .title-line-2 { font-size: 2.8rem; }
+            .hero-buttons { flex-direction: column; width: 100%; gap: 1rem; }
+            .btn-hero-primary, .btn-hero-link { width: 100%; justify-content: center; }
+            .section-desc { font-size: 0.9rem; padding: 0 10px; margin-bottom: 2rem; }
+            .team-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .team-card { min-height: auto; }
+            .bitacora-header { flex-direction: column; gap: 10px; }
+            .bitacora-actions { width: 100%; justify-content: flex-end; }
+            .ai-section { grid-template-columns: 1fr; text-align: center; padding: 3rem 1.5rem; }
+            .ai-content { order: 1; margin-bottom: 2rem; }
+            .card-3d-wrap { order: 2; }
+            .btn-ai { justify-content: center; width: 100%; }
+            .status-indicator { justify-content: center; }
+            footer { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
+            .footer-col { align-items: center; }
+            .social-icons { justify-content: center; }
+        }
+        @media (max-width: 480px) {
+            .title-line-2 { font-size: 2.2rem; }
+            .logo-text { display: none; }
+            .logo-img { height: 35px; width: 35px; }
+            .nav-actions { gap: 1rem; }
+            .section-title { font-size: 1.5rem; }
+            .cv-actions { flex-direction: column; gap: 10px; align-items: flex-start; }
+            .cv-controls { width: 100%; justify-content: space-between; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="brand">
+            <img src="imagen.png" alt="Logo Vértice" class="logo-img" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='flex'">
+            <div id="logo-fallback" class="logo-fallback" style="display:none;">
+                <i class="fas fa-leaf"></i>
+            </div>
+            <div class="logo-text">VÉRTICE</div>
+        </div>
+        <div class="nav-actions">
+            <ul class="nav-links">
+                <li><a href="#portafolio">Portafolio</a></li>
+                <li><a href="#bitacora">Bitácora</a></li>
+                <li><a href="#ai-insights">Resumen AI</a></li>
+            </ul>
+            <button class="theme-toggle-btn" id="theme-toggle"><i class="fas fa-sun" id="theme-icon"></i></button>
+        </div>
+    </nav>
+
+    <!-- SHAPE HERO -->
+    <header class="hero" id="hero-section">
+        <div class="hero-bg-blur"></div>
+        <div class="hero-shapes">
+            <div class="elegant-shape parallax-shape" data-speed="0.02" style="--rot-start: -23deg; --rot-end: -8deg; top: -10%; left: -15%; width: 300px; height: 500px; animation-delay: 0.3s; border-radius: 24px;"><div class="shape-content shape-indigo"></div></div>
+            <div class="elegant-shape parallax-shape" data-speed="0.04" style="--rot-start: 0deg; --rot-end: 15deg; bottom: -5%; right: -20%; width: 600px; height: 200px; animation-delay: 0.5s; border-radius: 20px;"><div class="shape-content shape-rose"></div></div>
+            <div class="elegant-shape parallax-shape" data-speed="0.03" style="--rot-start: 9deg; --rot-end: 24deg; top: 40%; left: -5%; width: 300px; height: 300px; animation-delay: 0.4s; border-radius: 32px;"><div class="shape-content shape-violet"></div></div>
+            <div class="elegant-shape parallax-shape" data-speed="0.05" style="--rot-start: -35deg; --rot-end: -20deg; top: 5%; right: 10%; width: 250px; height: 100px; animation-delay: 0.6s; border-radius: 12px;"><div class="shape-content shape-amber"></div></div>
+            <div class="elegant-shape parallax-shape" data-speed="0.02" style="--rot-start: 20deg; --rot-end: 35deg; top: 45%; right: -10%; width: 400px; height: 150px; animation-delay: 0.7s; border-radius: 16px;"><div class="shape-content shape-emerald"></div></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="title-line-1">Centro de Mando</span>
+                <span class="title-line-2 font-pacifico">Saneamiento Ambiental</span>
+            </h1>
+            <p class="hero-subtitle">Plataforma digital de ingeniería para la gestión, documentación y análisis de procesos de saneamiento.</p>
+            <div class="hero-buttons">
+                <a href="#bitacora" class="btn-hero-link">Explorar Bitácora <i class="fas fa-arrow-down"></i></a>
+                <a href="#portafolio" class="btn-hero-primary">Ver Integrantes</a>
+            </div>
+        </div>
+        <div class="hero-overlay"></div>
+    </header>
+
+    <!-- PORTAFOLIO (SHAPES BACKGROUND) -->
+    <section id="portafolio" class="team-section">
+        <div class="section-shapes">
+            <div class="elegant-shape parallax-shape" data-speed="0.02" style="--rot-start: 10deg; --rot-end: 25deg; top: 10%; left: -5%; width: 200px; height: 200px; animation-delay: 0.3s; border-radius: 32px;"><div class="shape-content shape-indigo"></div></div>
+            <div class="elegant-shape parallax-shape" data-speed="0.04" style="--rot-start: -15deg; --rot-end: 0deg; bottom: 20%; right: -5%; width: 400px; height: 150px; animation-delay: 0.5s; border-radius: 20px;"><div class="shape-content shape-violet"></div></div>
+        </div>
+
+        <h2 class="section-title">Nuestro Equipo</h2>
+        <p class="section-desc">Gestiona el perfil del equipo. Haz clic en la foto para elegir un avatar inclusivo o subir tu propia imagen.</p>
+
+        <div class="team-grid">
+            <!-- Card 1: LEIDY CAROLINA -->
+            <div class="team-card" id="card-1">
+                <div class="card-header">
+                    <div class="card-photo-wrapper" onclick="openAvatarModal('photo-img-1')">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Lilly&mouth=smile&eyebrows=default&eyes=happy" id="photo-img-1" alt="Leidy Carolina">
+                    </div>
+                    <h3 contenteditable="true">Leidy Carolina</h3>
+                    <p contenteditable="true">Coordinadora Técnica</p>
+                </div>
+                <div>
+                    <div class="skills-header"><span class="skills-label">Skills</span><button class="btn-add-skill" onclick="promptAndAddSkill('skills-container-1')">+</button></div>
+                    <div class="skills" id="skills-container-1">
+                        <span class="skill-tag">Gestión Ambiental <i class="fas fa-times remove-skill" onclick="this.parentElement.remove()"></i></span>
+                        <span class="skill-tag">Liderazgo <i class="fas fa-times remove-skill" onclick="this.parentElement.remove()"></i></span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="cv-actions">
+                        <a href="#" class="download-cv" id="download-link-1"><i class="fas fa-download"></i> Descargar CV</a>
+                        <div class="cv-controls">
+                            <button class="btn-delete-cv" id="delete-cv-1" onclick="deleteCV('download-link-1', 'cv-input-1', 'delete-cv-1')" title="Eliminar CV"><i class="fas fa-trash"></i></button>
+                            <div style="position:relative;">
+                                <button class="btn-upload" onclick="document.getElementById('cv-input-1').click()"><i class="fas fa-upload"></i> Subir</button>
+                                <input type="file" id="cv-input-1" hidden accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" onchange="handleCVUpload(this, 'download-link-1', 'delete-cv-1')">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2: VANESA PORTELA -->
+            <div class="team-card" id="card-2">
+                <div class="card-header">
+                    <div class="card-photo-wrapper" onclick="openAvatarModal('photo-img-2')">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Aneka&mouth=smile&eyebrows=default&eyes=happy" id="photo-img-2">
+                    </div>
+                    <h3 contenteditable="true">Vanesa Portela</h3>
+                    <p contenteditable="true">Ingeniera Sanitaria</p>
+                </div>
+                <div>
+                    <div class="skills-header"><span class="skills-label">Skills</span><button class="btn-add-skill" onclick="promptAndAddSkill('skills-container-2')">+</button></div>
+                    <div class="skills" id="skills-container-2">
+                        <span class="skill-tag">EPANET <i class="fas fa-times remove-skill" onclick="this.parentElement.remove()"></i></span>
+                        <span class="skill-tag">Saneamiento <i class="fas fa-times remove-skill" onclick="this.parentElement.remove()"></i></span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="cv-actions">
+                        <a href="#" class="download-cv" id="download-link-2"><i class="fas fa-download"></i> Descargar</a>
+                        <div class="cv-controls">
+                            <button class="btn-delete-cv" id="delete-cv-2" onclick="deleteCV('download-link-2', 'cv-input-2', 'delete-cv-2')" title="Eliminar CV"><i class="fas fa-trash"></i></button>
+                            <div style="position:relative;">
+                                <button class="btn-upload" onclick="document.getElementById('cv-input-2').click()"><i class="fas fa-upload"></i> Subir</button>
+                                <input type="file" id="cv-input-2" hidden accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" onchange="handleCVUpload(this, 'download-link-2', 'delete-cv-2')">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="team-card" id="card-3">
+                <div class="card-header">
+                    <div class="card-photo-wrapper" onclick="openAvatarModal('photo-img-3')">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Zack&mouth=smile&eyebrows=default&eyes=happy" id="photo-img-3">
+                    </div>
+                    <h3 contenteditable="true">Roberto Silva</h3>
+                    <p contenteditable="true">Estructural</p>
+                </div>
+                <div>
+                    <div class="skills-header"><span class="skills-label">Skills</span><button class="btn-add-skill" onclick="promptAndAddSkill('skills-container-3')">+</button></div>
+                    <div class="skills" id="skills-container-3">
+                        <span class="skill-tag">QGIS <i class="fas fa-times remove-skill" onclick="this.parentElement.remove()"></i></span>
+                        <span class="skill-tag">Revit <i class="fas fa-times remove-skill" onclick="this.parentElement.remove()"></i></span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="cv-actions">
+                        <a href="#" class="download-cv" id="download-link-3"><i class="fas fa-download"></i> Descargar</a>
+                        <div class="cv-controls">
+                            <button class="btn-delete-cv" id="delete-cv-3" onclick="deleteCV('download-link-3', 'cv-input-3', 'delete-cv-3')" title="Eliminar CV"><i class="fas fa-trash"></i></button>
+                            <div style="position:relative;">
+                                <button class="btn-upload" onclick="document.getElementById('cv-input-3').click()"><i class="fas fa-upload"></i> Subir</button>
+                                <input type="file" id="cv-input-3" hidden accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" onchange="handleCVUpload(this, 'download-link-3', 'delete-cv-3')">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 4 -->
+            <div class="team-card" id="card-4">
+                <div class="card-header">
+                    <div class="card-photo-wrapper" onclick="openAvatarModal('photo-img-4')">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Midnight&mouth=smile&eyebrows=default&eyes=happy" id="photo-img-4">
+                    </div>
+                    <h3 contenteditable="true">Isabel Valdés</h3>
+                    <p contenteditable="true">Analista de Datos</p>
+                </div>
+                <div>
+                    <div class="skills-header"><span class="skills-label">Skills</span><button class="btn-add-skill" onclick="promptAndAddSkill('skills-container-4')">+</button></div>
+                    <div class="skills" id="skills-container-4">
+                        <span class="skill-tag">Python <i class="fas fa-times remove-skill" onclick="this.parentElement.remove()"></i></span>
+                        <span class="skill-tag">Hidrología <i class="fas fa-times remove-skill" onclick="this.parentElement.remove()"></i></span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="cv-actions">
+                        <a href="#" class="download-cv" id="download-link-4"><i class="fas fa-download"></i> Descargar</a>
+                        <div class="cv-controls">
+                            <button class="btn-delete-cv" id="delete-cv-4" onclick="deleteCV('download-link-4', 'cv-input-4', 'delete-cv-4')" title="Eliminar CV"><i class="fas fa-trash"></i></button>
+                            <div style="position:relative;">
+                                <button class="btn-upload" onclick="document.getElementById('cv-input-4').click()"><i class="fas fa-upload"></i> Subir</button>
+                                <input type="file" id="cv-input-4" hidden accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" onchange="handleCVUpload(this, 'download-link-4', 'delete-cv-4')">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BITÁCORA -->
+    <section id="bitacora" class="bitacora-section">
+        <div class="section-shapes">
+            <div class="elegant-shape parallax-shape" data-speed="0.03" style="--rot-start: 45deg; --rot-end: 60deg; top: 15%; right: 5%; width: 300px; height: 300px; animation-delay: 0.2s; border-radius: 50%;"><div class="shape-content shape-emerald"></div></div>
+        </div>
+
+        <h2 class="section-title">Bitácora Digital</h2>
+        <p class="section-desc">Gestiona tus avances semanales. Guarda tus entradas para archivarlas.</p>
+        
+        <div id="bitacora-container" class="bitacora-container">
+            <!-- Entrada de Ejemplo -->
+            <div class="bitacora-entry-wrapper" onmousemove="handleBitacoraMove(event, this)" onmouseleave="handleBitacoraLeave(this)">
+                <div class="bitacora-card" data-editable="true">
+                    <div class="bitacora-header">
+                        <div class="bitacora-date" contenteditable="true">SEMANA 1 - FEBRERO 2026</div>
+                        <div class="bitacora-actions">
+                            <button class="btn-action-icon btn-save" onclick="saveEntry(this)" title="Guardar"><i class="fas fa-save"></i></button>
+                            <button class="btn-action-icon btn-edit" onclick="editEntry(this)" style="display:none" title="Editar"><i class="fas fa-pen"></i></button>
+                            <button class="btn-action-icon btn-delete" onclick="deleteEntry(this)" title="Eliminar"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <h3 contenteditable="true" style="font-size: 1.25rem; margin-bottom: 1rem;">Configuración del Entorno</h3>
+                    <p contenteditable="true" style="color: var(--text-muted);">Se realizó la configuración inicial del portafolio digital utilizando tecnologías web modernas.</p>
+                    <div class="evidence-container">
+                        <p class="evidence-label"><i class="fas fa-camera"></i> Evidencia de Campo</p>
+                        <div class="evidence-preview" onclick="if(this.closest('.bitacora-card').getAttribute('data-editable') === 'true') document.getElementById('evidence-1').click()" id="preview-1">
+                            <div class="evidence-placeholder"><i class="fas fa-plus-circle" style="font-size: 2rem;"></i><span>Añadir Foto</span></div>
+                            <img id="img-evidence-1" src="" alt="Evidencia">
+                        </div>
+                        <input type="file" id="evidence-1" hidden accept="image/*" onchange="previewEvidence(this, 'preview-1', 'img-evidence-1')">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn-add-entry" onclick="addLogEntry()">
+            <i class="fas fa-plus"></i> Nueva Entrada Semanal
+        </button>
+    </section>
+
+    <!-- AI SECTION -->
+    <section id="ai-insights" class="ai-section">
+        <canvas id="starfield-canvas"></canvas>
+        <div class="ai-content">
+            <div class="ai-badge"><i class="fas fa-sparkles"></i> GenAI Insights</div>
+            <h2>Análisis Sintético Semanal</h2>
+            <p>Resumen ejecutivo generado por IA para revisión rápida.</p>
+            <button class="btn-ai" onclick="generateSummary()"><i class="fas fa-microchip"></i> Generar Resumen</button>
+        </div>
+        <div class="card-3d-wrap" onmousemove="handleCardMove(event, this)" onmouseleave="handleCardLeave(this)">
+            <div class="ai-card-display card-3d-target">
+                <div class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text" id="ai-status">Estado: Pendiente</span>
+                </div>
+                <div class="ai-result-text" id="ai-result">Inicia el análisis para ver resultados.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-col">
+            <h3 style="margin-bottom: 1rem; font-size: 1.1rem; color: white;">VÉRTICE</h3>
+            <p style="color: #94a3b8; font-size: 0.85rem;">Plataforma académica de Saneamiento Ambiental.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Enlaces</h4>
+            <ul><li>Portafolio</li><li>Bitácora</li></ul>
+        </div>
+        <div class="footer-col">
+            <h4>Social</h4>
+            <div class="social-icons">
+                <a href="#" class="social-btn"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:contacto@vertice.com" class="social-btn"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL AVATAR -->
+    <div id="avatarModal" class="avatar-modal">
+        <div class="avatar-modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h3 style="margin-bottom: 1.5rem; color: var(--text-main); text-align: center;">Elige tu Identidad</h3>
+            <div class="upload-section">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Sube tu propia foto</p>
+                <div class="upload-circle-btn" onclick="triggerFileUpload()"><i class="fas fa-cloud-upload-alt" style="font-size: 1.5rem;"></i></div>
+                <input type="file" id="modal-file-input" hidden accept="image/*">
+            </div>
+            <h4 style="margin: 1.5rem 0 1rem; color: var(--text-main); text-align: center; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">O selecciona un Avatar Feliz</h4>
+            <div class="avatar-grid" id="avatarGrid"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- STARFIELD ---
+        class Starfield {
+            constructor(canvasId) {
+                this.canvas = document.getElementById(canvasId);
+                if (!this.canvas) return;
+                this.ctx = this.canvas.getContext('2d');
+                this.stars = [];
+                this.numStars = 200; 
+                this.speed = 1.0;    
+                this.resize();
+                window.addEventListener('resize', () => this.resize());
+                this.animate();
+            }
+            resize() {
+                this.canvas.width = this.canvas.parentElement.offsetWidth;
+                this.canvas.height = this.canvas.parentElement.offsetHeight;
+                this.initStars();
+            }
+            initStars() {
+                this.stars = [];
+                for (let i = 0; i < this.numStars; i++) {
+                    this.stars.push({
+                        x: Math.random() * this.canvas.width,
+                        y: Math.random() * this.canvas.height,
+                        z: Math.random() * 2 + 0.5, 
+                        alpha: Math.random() 
+                    });
+                }
+            }
+            animate() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                this.ctx.fillStyle = isDark ? '#ffffff' : '#000000';
+                this.stars.forEach(star => {
+                    star.y += this.speed * star.z;
+                    if (star.y > this.canvas.height) {
+                        star.y = 0;
+                        star.x = Math.random() * this.canvas.width;
+                    }
+                    this.ctx.globalAlpha = star.alpha * (isDark ? 0.8 : 0.3); 
+                    this.ctx.beginPath();
+                    this.ctx.arc(star.x, star.y, star.z * 0.8, 0, Math.PI * 2);
+                    this.ctx.fill();
+                });
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+        document.addEventListener('DOMContentLoaded', () => { new Starfield('starfield-canvas'); });
+
+        // --- PARALLAX HERO ---
+        document.addEventListener('mousemove', (e) => {
+            const shapes = document.querySelectorAll('.parallax-shape');
+            const x = (window.innerWidth - e.pageX) / 100; const y = (window.innerHeight - e.pageY) / 100;
+            shapes.forEach(shape => {
+                const speed = shape.getAttribute('data-speed') || 0.05;
+                const xOffset = x * speed * 100; const yOffset = y * speed * 100;
+                shape.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+            });
+        });
+
+        // --- 3D PHYSICS ---
+        function apply3DPhysics(e, container, cardSelector) {
+            const card = container.querySelector(cardSelector); if(!card) return;
+            const rect = container.getBoundingClientRect();
+            const x = e.clientX - rect.left; const y = e.clientY - rect.top;
+            const centerX = rect.width / 2; const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -15; const rotateY = ((x - centerX) / centerX) * 15;
+            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        }
+
+        // 3D Card Handlers
+        function handleCardMove(e, container) { apply3DPhysics(e, container, '.card-3d-target'); }
+        function handleCardLeave(container) { const card = container.querySelector('.card-3d-target'); if(card) card.style.transform = `rotateX(0deg) rotateY(0deg)`; }
+
+        function handleBitacoraMove(e, container) {
+            const card = container.querySelector('.bitacora-card');
+            if (card && card.getAttribute('data-editable') === 'false') {
+                apply3DPhysics(e, container, '.bitacora-card');
+            }
+        }
+        function handleBitacoraLeave(container) {
+            const card = container.querySelector('.bitacora-card'); if (card) card.style.transform = `rotateX(0deg) rotateY(0deg)`;
+        }
+
+        // --- ACTIONS ---
+        function saveEntry(btn) {
+            const card = btn.closest('.bitacora-card');
+            card.setAttribute('data-editable', 'false');
+            card.classList.add('is-saved');
+            card.querySelectorAll('[contenteditable]').forEach(el => el.contentEditable = \"false\");
+            btn.style.display = 'none';
+            card.querySelector('.btn-edit').style.display = 'flex';
+        }
+        function editEntry(btn) {
+            const card = btn.closest('.bitacora-card');
+            card.setAttribute('data-editable', 'true');
+            card.classList.remove('is-saved');
+            card.style.transform = 'none';
+            card.querySelectorAll('[contenteditable]').forEach(el => el.contentEditable = \"true\");
+            btn.style.display = 'none';
+            card.querySelector('.btn-save').style.display = 'flex';
+        }
+        function deleteEntry(btn) { if(confirm('¿Estás seguro de eliminar esta entrada?')) { btn.closest('.bitacora-entry-wrapper').remove(); } }
+
+        function addLogEntry() {
+            const container = document.getElementById('bitacora-container');
+            const uniqueId = Date.now();
+            const entryHTML = `
+                <div class="bitacora-entry-wrapper" onmousemove="handleBitacoraMove(event, this)" onmouseleave="handleBitacoraLeave(this)">
+                    <div class="bitacora-card" data-editable="true">
+                        <div class="bitacora-header">
+                            <div class="bitacora-date" contenteditable="true">NUEVA SEMANA</div>
+                            <div class="bitacora-actions">
+                                <button class="btn-action-icon btn-save" onclick="saveEntry(this)" title="Guardar"><i class="fas fa-save"></i></button>
+                                <button class="btn-action-icon btn-edit" onclick="editEntry(this)" style="display:none" title="Editar"><i class="fas fa-pen"></i></button>
+                                <button class="btn-action-icon btn-delete" onclick="deleteEntry(this)" title="Eliminar"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <h3 contenteditable="true" style="font-size: 1.25rem; margin-bottom: 1rem;">Título del Tema</h3>
+                        <p contenteditable="true" style="color: var(--text-muted);">Escribe aquí el resumen técnico...</p>
+                        <div class="evidence-container">
+                            <p class="evidence-label"><i class="fas fa-camera"></i> Evidencia de Campo</p>
+                            <div class="evidence-preview" onclick="if(this.closest('.bitacora-card').getAttribute('data-editable') === 'true') document.getElementById('evidence-\${uniqueId}').click()" id="preview-\${uniqueId}">
+                                <div class="evidence-placeholder"><i class="fas fa-plus-circle" style="font-size: 2rem;"></i><span>Añadir Foto</span></div>
+                                <img id="img-evidence-\${uniqueId}" src="" alt="Evidencia">
+                            </div>
+                            <input type="file" id="evidence-\${uniqueId}" hidden accept="image/*" onchange="previewEvidence(this, 'preview-\${uniqueId}', 'img-evidence-\${uniqueId}')">
+                        </div>
+                    </div>
+                </div>`;
+            container.insertAdjacentHTML('beforeend', entryHTML);
+        }
+
+        // --- THEME ---
+        const toggleBtn = document.getElementById('theme-toggle'); const themeIcon = document.getElementById('theme-icon');
+        const htmlElement = document.documentElement;
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        htmlElement.setAttribute('data-theme', savedTheme); updateIcon(savedTheme);
+        toggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            htmlElement.setAttribute('data-theme', newTheme); localStorage.setItem('theme', newTheme); updateIcon(newTheme);
+        });
+        function updateIcon(theme) { themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'; }
+
+        // --- AVATAR & CV ---
+        let currentTargetImgId = null;
+        function openAvatarModal(imgId) { currentTargetImgId = imgId; document.getElementById('avatarModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('avatarModal').style.display = 'none'; currentTargetImgId = null; }
+        function selectAvatar(url) { if (currentTargetImgId) { document.getElementById(currentTargetImgId).src = url; closeModal(); } }
+        function triggerFileUpload() {
+            const input = document.getElementById('modal-file-input'); input.click();
+            input.onchange = function() {
+                if (this.files && this.files[0]) {
+                    const reader = new FileReader(); reader.onload = function(e) { if (currentTargetImgId) { document.getElementById(currentTargetImgId).src = e.target.result; closeModal(); } }
+                    reader.readAsDataURL(this.files[0]);
+                }
+            };
+        }
+        const seeds = ['Lilly', 'Aneka', 'Zack', 'Midnight', 'Bandit', 'Bella', 'Buster', 'Coco', 'Daisy', 'Ginger', 'Jack', 'Jasper', 'Molly', 'Oscar', 'Pepper', 'Rocky', 'Sadie', 'Sam', 'Simba', 'Toby', 'Max', 'Luna', 'Oliver', 'Milo', 'Leo'];
+        const grid = document.getElementById('avatarGrid');
+        seeds.forEach(seed => {
+            const url = `https://api.dicebear.com/7.x/avataaars/svg?seed=\${seed}&mouth=smile&eyebrows=default&eyes=happy`;
+            const div = document.createElement('div'); div.className = 'avatar-option'; div.onclick = () => selectAvatar(url);
+            div.innerHTML = `<img src="\${url}" alt="Avatar">`; grid.appendChild(div);
+        });
+        window.onclick = function(event) { const modal = document.getElementById('avatarModal'); if (event.target == modal) closeModal(); }
+
+        function promptAndAddSkill(containerId) {
+            const skillName = prompt("Ingresa la nueva habilidad:");
+            if (skillName && skillName.trim() !== \"\") {
+                const container = document.getElementById(containerId);
+                const newSkill = document.createElement('span'); newSkill.className = 'skill-tag new-skill';
+                newSkill.innerHTML = `\${skillName} <i class="fas fa-times remove-skill" onclick="this.parentElement.remove()"></i>`;
+                container.appendChild(newSkill);
+            }
+        }
+        function handleCVUpload(input, linkId, deleteBtnId) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0]; const link = document.getElementById(linkId); const deleteBtn = document.getElementById(deleteBtnId);
+                link.href = URL.createObjectURL(file); link.download = file.name; link.classList.add('active');
+                let iconClass = \"fas fa-file-alt\"; if (file.type.includes('image')) iconClass = \"fas fa-image\"; else if (file.type.includes('pdf')) iconClass = \"fas fa-file-pdf\";
+                link.innerHTML = `<i class="\${iconClass}"></i> ` + (file.name.length > 12 ? file.name.substring(0, 10) + '...' : file.name);
+                if(deleteBtn) deleteBtn.style.display = 'flex';
+            }
+        }
+        function deleteCV(linkId, inputId, deleteBtnId) {
+            const link = document.getElementById(linkId); const input = document.getElementById(inputId); const deleteBtn = document.getElementById(deleteBtnId);
+            input.value = ''; link.href = '#'; link.classList.remove('active'); link.innerHTML = '<i class=\"fas fa-download\"></i> Descargar CV'; deleteBtn.style.display = 'none';
+        }
+        function previewEvidence(input, containerId, imgId) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader(); reader.onload = function(e) { document.getElementById(imgId).src = e.target.result; document.getElementById(containerId).classList.add('has-image'); }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // --- AI (Dynamic Summary) ---
+        function generateSummary() {
+            const statusText = document.getElementById('ai-status'); const resultText = document.getElementById('ai-result'); const dot = document.querySelector('.status-dot');
+            statusText.textContent = \"Procesando...\"; statusText.style.color = \"#38bdf8\"; dot.style.backgroundColor = \"#38bdf8\";
+            resultText.innerHTML = '<i class=\"fas fa-circle-notch fa-spin\"></i> Analizando entradas de bitácora...';
+            setTimeout(() => {
+                statusText.textContent = \"Completado\"; statusText.style.color = \"#10b981\"; dot.style.backgroundColor = \"#10b981\";
+                const entries = document.querySelectorAll('.bitacora-card');
+                if (entries.length === 0) { resultText.innerHTML = \"No se encontraron entradas para analizar.\"; return; }
+                let summaryHTML = '<strong style=\"color: var(--text-accent);\">Informe de Progreso Técnico:</strong><br><br>';
+                entries.forEach((card, index) => {
+                    const date = card.querySelector('.bitacora-date').innerText.trim() || \"Sin fecha\";
+                    const title = card.querySelector('h3').innerText.trim() || \"Sin título\";
+                    const content = card.querySelector('p').innerText.trim() || \"Sin contenido\";
+                    const shortContent = content.length > 80 ? content.substring(0, 80) + \"...\" : content;
+                    summaryHTML += `<div style=\"margin-bottom: 12px; padding-left: 10px; border-left: 3px solid var(--text-accent);\"><span style=\"font-size: 0.75em; color: var(--text-muted); text-transform: uppercase;\">\${date}</span><br><span style=\"font-weight: 600; color: var(--text-main);\">\${title}</span><br><span style=\"font-size: 0.9em; color: var(--text-muted); font-style: italic;\">\\"\${shortContent}\\"</span></div>`;
+                });
+                summaryHTML += `<br><span style=\"font-size: 0.8em; color: #10b981;\"><i class=\"fas fa-check-circle\"></i> Análisis completado. \${entries.length} sesiones registradas.</span>`;
+                resultText.style.fontStyle = \"normal\"; resultText.innerHTML = summaryHTML;
+            }, 2000);
+        }
+
+        // --- SCROLL SMOOTH ---
+        document.querySelectorAll('a[href^=\"#\"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+            });
+        });
+    </script>
+</body>
+</html>
