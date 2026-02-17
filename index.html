@@ -385,27 +385,28 @@
         <p class="section-desc">Gestiona el perfil del equipo. Haz clic en la foto para elegir un avatar inclusivo o subir tu propia imagen.</p>
 
         <div class="team-grid">
-            <!-- Card 1 -->
+            <!-- Card 1: ACTUALIZADA PARA LEIDY CAROLINA ROJAS CUPITRA -->
             <div class="team-card" id="card-1">
                 <div class="card-header">
                     <div class="card-photo-wrapper" onclick="openAvatarModal('photo-img-1')">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Lilly&mouth=smile&eyebrows=default&eyes=happy" id="photo-img-1" alt="Leidy Carolina">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Lilly&mouth=smile&eyebrows=default&eyes=happy" id="photo-img-1" alt="Leidy Carolina Rojas Cupitra">
                     </div>
-                    <h3 contenteditable="true">Leidy Carolina</h3>
-                    <p contenteditable="true">Coordinadora Técnica</p>
+                    <h3 contenteditable="true">Leidy Carolina Rojas Cupitra</h3>
+                    <p contenteditable="true">Topógrafa</p>
                 </div>
                 <div>
                     <div class="skills-header"><span class="skills-label">Skills</span><button class="btn-add-skill" onclick="promptAndAddSkill('skills-container-1')">+</button></div>
                     <div class="skills" id="skills-container-1">
-                        <span class="skill-tag">Gestión Ambiental <i class="fas fa-times remove-skill" onclick="this.parentElement.remove()"></i></span>
-                        <span class="skill-tag">Liderazgo <i class="fas fa-times remove-skill" onclick="this.parentElement.remove()"></i></span>
+                        <span class="skill-tag">Manejo de AutoCAD <i class="fas fa-times remove-skill" onclick="this.parentElement.remove()"></i></span>
+                        <span class="skill-tag">Trabajo en grupo <i class="fas fa-times remove-skill" onclick="this.parentElement.remove()"></i></span>
                     </div>
                 </div>
                 <div class="card-footer">
                     <div class="cv-actions">
-                        <a href="#" class="download-cv" id="download-link-1"><i class="fas fa-download"></i> Descargar CV</a>
+                        <!-- VINCULADO AL PDF ADJUNTO -->
+                        <a href="HojadeVida..pdf_2025_4_1.pdf" class="download-cv active" id="download-link-1" download="HojadeVida_Leidy_Carolina.pdf"><i class="fas fa-file-pdf"></i> Descargar CV</a>
                         <div class="cv-controls">
-                            <button class="btn-delete-cv" id="delete-cv-1" onclick="deleteCV('download-link-1', 'cv-input-1', 'delete-cv-1')" title="Eliminar CV"><i class="fas fa-trash"></i></button>
+                            <button class="btn-delete-cv" id="delete-cv-1" onclick="deleteCV('download-link-1', 'cv-input-1', 'delete-cv-1')" title="Eliminar CV" style="display:flex;"><i class="fas fa-trash"></i></button>
                             <div style="position:relative;">
                                 <button class="btn-upload" onclick="document.getElementById('cv-input-1').click()"><i class="fas fa-upload"></i> Subir</button>
                                 <input type="file" id="cv-input-1" hidden accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" onchange="handleCVUpload(this, 'download-link-1', 'delete-cv-1')">
@@ -414,13 +415,13 @@
                     </div>
                 </div>
             </div>
-            <!-- Card 2: VANESA PORTELA -->
+            <!-- Card 2 -->
             <div class="team-card" id="card-2">
                 <div class="card-header">
                     <div class="card-photo-wrapper" onclick="openAvatarModal('photo-img-2')">
                         <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Aneka&mouth=smile&eyebrows=default&eyes=happy" id="photo-img-2">
                     </div>
-                    <h3 contenteditable="true">Vanesa Portela</h3>
+                    <h3 contenteditable="true">Ana Lucía Ortiz</h3>
                     <p contenteditable="true">Ingeniera Sanitaria</p>
                 </div>
                 <div>
@@ -672,7 +673,7 @@
 
         // 3D Card Handlers
         function handleCardMove(e, container) { apply3DPhysics(e, container, '.card-3d-target'); }
-        function handleCardLeave(container) { const card = container.querySelector('.card-3d-target'); if(card) card.style.transform = 'rotateX(0deg) rotateY(0deg)'; }
+        function handleCardLeave(container) { const card = container.querySelector('.card-3d-target'); if(card) card.style.transform = `rotateX(0deg) rotateY(0deg)`; }
 
         function handleBitacoraMove(e, container) {
             const card = container.querySelector('.bitacora-card');
@@ -681,7 +682,7 @@
             }
         }
         function handleBitacoraLeave(container) {
-            const card = container.querySelector('.bitacora-card'); if (card) card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+            const card = container.querySelector('.bitacora-card'); if (card) card.style.transform = `rotateX(0deg) rotateY(0deg)`;
         }
 
         // --- ACTIONS ---
@@ -689,7 +690,7 @@
             const card = btn.closest('.bitacora-card');
             card.setAttribute('data-editable', 'false');
             card.classList.add('is-saved');
-            card.querySelectorAll('[contenteditable]').forEach(el => el.contentEditable = 'false');
+            card.querySelectorAll('[contenteditable]').forEach(el => el.contentEditable = "false");
             btn.style.display = 'none';
             card.querySelector('.btn-edit').style.display = 'flex';
         }
@@ -698,7 +699,7 @@
             card.setAttribute('data-editable', 'true');
             card.classList.remove('is-saved');
             card.style.transform = 'none';
-            card.querySelectorAll('[contenteditable]').forEach(el => el.contentEditable = 'true');
+            card.querySelectorAll('[contenteditable]').forEach(el => el.contentEditable = "true");
             btn.style.display = 'none';
             card.querySelector('.btn-save').style.display = 'flex';
         }
@@ -734,31 +735,22 @@
         }
 
         // --- THEME ---
-        const toggleBtn = document.getElementById('theme-toggle'); 
-        const themeIcon = document.getElementById('theme-icon');
+        const toggleBtn = document.getElementById('theme-toggle'); const themeIcon = document.getElementById('theme-icon');
         const htmlElement = document.documentElement;
-
-        function updateIcon(theme) { 
-            themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'; 
-        }
-
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        htmlElement.setAttribute('data-theme', savedTheme); updateIcon(savedTheme);
         toggleBtn.addEventListener('click', () => {
             const currentTheme = htmlElement.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            htmlElement.setAttribute('data-theme', newTheme); 
-            localStorage.setItem('theme', newTheme); 
-            updateIcon(newTheme);
+            htmlElement.setAttribute('data-theme', newTheme); localStorage.setItem('theme', newTheme); updateIcon(newTheme);
         });
-
-        // Inicializar icono
-        updateIcon(htmlElement.getAttribute('data-theme'));
+        function updateIcon(theme) { themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'; }
 
         // --- AVATAR & CV ---
         let currentTargetImgId = null;
         function openAvatarModal(imgId) { currentTargetImgId = imgId; document.getElementById('avatarModal').style.display = 'flex'; }
         function closeModal() { document.getElementById('avatarModal').style.display = 'none'; currentTargetImgId = null; }
         function selectAvatar(url) { if (currentTargetImgId) { document.getElementById(currentTargetImgId).src = url; closeModal(); } }
-        
         function triggerFileUpload() {
             const input = document.getElementById('modal-file-input'); input.click();
             input.onchange = function() {
@@ -768,7 +760,6 @@
                 }
             };
         }
-
         const seeds = ['Lilly', 'Aneka', 'Zack', 'Midnight', 'Bandit', 'Bella', 'Buster', 'Coco', 'Daisy', 'Ginger', 'Jack', 'Jasper', 'Molly', 'Oscar', 'Pepper', 'Rocky', 'Sadie', 'Sam', 'Simba', 'Toby', 'Max', 'Luna', 'Oliver', 'Milo', 'Leo'];
         const grid = document.getElementById('avatarGrid');
         seeds.forEach(seed => {
@@ -776,7 +767,6 @@
             const div = document.createElement('div'); div.className = 'avatar-option'; div.onclick = () => selectAvatar(url);
             div.innerHTML = `<img src="${url}" alt="Avatar">`; grid.appendChild(div);
         });
-
         window.onclick = function(event) { const modal = document.getElementById('avatarModal'); if (event.target == modal) closeModal(); }
 
         function promptAndAddSkill(containerId) {
@@ -788,22 +778,19 @@
                 container.appendChild(newSkill);
             }
         }
-
         function handleCVUpload(input, linkId, deleteBtnId) {
             if (input.files && input.files[0]) {
                 const file = input.files[0]; const link = document.getElementById(linkId); const deleteBtn = document.getElementById(deleteBtnId);
                 link.href = URL.createObjectURL(file); link.download = file.name; link.classList.add('active');
-                let iconClass = 'fas fa-file-alt'; if (file.type.includes('image')) iconClass = 'fas fa-image'; else if (file.type.includes('pdf')) iconClass = 'fas fa-file-pdf';
+                let iconClass = "fas fa-file-alt"; if (file.type.includes('image')) iconClass = "fas fa-image"; else if (file.type.includes('pdf')) iconClass = "fas fa-file-pdf";
                 link.innerHTML = `<i class="${iconClass}"></i> ` + (file.name.length > 12 ? file.name.substring(0, 10) + '...' : file.name);
                 if(deleteBtn) deleteBtn.style.display = 'flex';
             }
         }
-
         function deleteCV(linkId, inputId, deleteBtnId) {
             const link = document.getElementById(linkId); const input = document.getElementById(inputId); const deleteBtn = document.getElementById(deleteBtnId);
             input.value = ''; link.href = '#'; link.classList.remove('active'); link.innerHTML = '<i class="fas fa-download"></i> Descargar CV'; deleteBtn.style.display = 'none';
         }
-
         function previewEvidence(input, containerId, imgId) {
             if (input.files && input.files[0]) {
                 const reader = new FileReader(); reader.onload = function(e) { document.getElementById(imgId).src = e.target.result; document.getElementById(containerId).classList.add('has-image'); }
