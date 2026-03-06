@@ -515,7 +515,7 @@
         <p class="section-desc">Gestiona tus avances semanales. Guarda tus entradas para archivarlas.</p>
         
         <div id="bitacora-container" class="bitacora-container">
-            <!-- Entrada: Fundamentos de Ecología -->
+            <!-- Entrada: Fundamentos de Ecología (Semana 1) -->
             <div class="bitacora-entry-wrapper" onmousemove="handleBitacoraMove(event, this)" onmouseleave="handleBitacoraLeave(this)">
                 <div class="bitacora-card" data-editable="true">
                     <div class="bitacora-header">
@@ -532,21 +532,48 @@
 Se destacó la importancia de comprender cómo funcionan los ecosistemas para poder gestionar correctamente el ambiente y prevenir enfermedades.
 
 Temas principales:
-🔹 Saneamiento y saneamiento ambiental: El saneamiento incluye el abastecimiento de agua potable, el manejo de excretas, el tratamiento de aguas residuales y la gestión de residuos sólidos. El saneamiento ambiental integra principios ecológicos para mantener el equilibrio entre la actividad humana y la naturaleza.
-🔹 Fundamentos de la ecología: La ecología estudia las relaciones entre los seres vivos y su entorno. Se explicó el concepto de ecosistema y la importancia de la interdependencia entre especies para mantener el equilibrio natural.
-🔹 Factores bióticos y abióticos: Bióticos: seres vivos. Abióticos: agua, luz, temperatura, suelo. Ambos interactúan y determinan la estabilidad de los ecosistemas.
-🔹 Flujo de energía y ciclos naturales: La energía fluye desde los productores hacia consumidores y descomponedores. También se analizaron ciclos como el del agua y el carbono, esenciales para la vida.
-🔹 Ecosistemas naturales y artificiales: Los naturales tienen mayor equilibrio y biodiversidad. Los artificiales, creados por el ser humano, requieren mayor intervención y pueden ser más vulnerables.
-🔹 Dinámica poblacional y adaptación: Las poblaciones crecen según la disponibilidad de recursos. Los organismos desarrollan adaptaciones morfológicas, fisiológicas y comportamentales para sobrevivir.
-🔹 Biodiversidad y conservación: La biodiversidad es fundamental porque brinda servicios ecosistémicos como regulación del clima y purificación del agua. Se analizaron amenazas como la contaminación, la deforestación y el cambio climático.</p>
+🔹 Saneamiento y saneamiento ambiental.
+🔹 Factores bióticos y abióticos.
+🔹 Flujo de energía y ciclos naturales.
+🔹 Biodiversidad y conservación ambiental.</p>
                     <div class="evidence-container">
                         <p class="evidence-label"><i class="fas fa-camera"></i> Evidencia de Campo</p>
                         <div class="evidence-preview has-image" onclick="if(this.closest('.bitacora-card').getAttribute('data-editable') === 'true') document.getElementById('evidence-1').click()" id="preview-1">
                             <div class="evidence-placeholder"><i class="fas fa-plus-circle" style="font-size: 2rem;"></i><span>Añadir Foto</span></div>
-                            <!-- IMAGEN ACTUALIZADA -->
                             <img id="img-evidence-1" src="286ade3b-39c6-4632-a252-c488ac29bf27.jpg" alt="Evidencia" style="display: block;">
                         </div>
                         <input type="file" id="evidence-1" hidden accept="image/*" onchange="previewEvidence(this, 'preview-1', 'img-evidence-1')">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Entrada: Actividad Interactiva (Semana 2) -->
+            <div class="bitacora-entry-wrapper" onmousemove="handleBitacoraMove(event, this)" onmouseleave="handleBitacoraLeave(this)">
+                <div class="bitacora-card" data-editable="true">
+                    <div class="bitacora-header">
+                        <div class="bitacora-date" contenteditable="true">SEMANA 2 - FEBRERO 2026</div>
+                        <div class="bitacora-actions">
+                            <button class="btn-action-icon btn-save" onclick="saveEntry(this)" title="Guardar"><i class="fas fa-save"></i></button>
+                            <button class="btn-action-icon btn-edit" onclick="editEntry(this)" style="display:none" title="Editar"><i class="fas fa-pen"></i></button>
+                            <button class="btn-action-icon btn-delete" onclick="deleteEntry(this)" title="Eliminar"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <h3 contenteditable="true" style="font-size: 1.25rem; margin-bottom: 1rem;">Simulación de Crisis: Gestión Social y Técnica del Recurso Hídrico</h3>
+                    <p contenteditable="true" style="color: var(--text-muted); white-space: pre-wrap;">Durante esta jornada, nos sumergimos en una actividad interactiva de alta fidelidad basada en el juego de roles, diseñada para enfrentarnos a la cruda realidad de la gestión ambiental en contextos de crisis.
+
+El escenario planteado fue el de un pueblo vulnerable que sufría las consecuencias de una carencia total de servicios de agua potable dignos. La narrativa nos situó en el epicentro de una emergencia sanitaria: los niños de la comunidad enfermaban alarmantemente debido al consumo de agua contaminada, mientras que la infraestructura local —empezando por escuelas y hospitales— se encontraba en un estado de precariedad absoluta. Ante este panorama, se nos asignaron roles específicos para tomar decisiones críticas bajo presión, equilibrando presupuestos limitados con la urgencia humana.
+
+Fue un ejercicio de empatía y rigor técnico donde cada decisión de ingeniería o política pública tenía un rostro humano detrás.
+
+<strong>Reflexión Final:</strong>
+Esta experiencia nos demostró que en un entorno laboral y social, la excelencia técnica no basta por sí sola. El <strong>trabajo en equipo</strong> es el motor que permite integrar visiones diversas para solucionar problemas sistémicos, mientras que el <strong>pensamiento crítico</strong> actúa como filtro para priorizar las necesidades reales frente a las burocráticas. Mantener la <strong>objetividad</strong> en contextos de alta carga emocional es el mayor desafío del profesional de saneamiento; entender que nuestra labor no es solo construir tubos o plantas, sino garantizar el derecho fundamental a la vida y la salud pública de forma ética y equitativa.</p>
+                    <div class="evidence-container">
+                        <p class="evidence-label"><i class="fas fa-camera"></i> Evidencia de la Actividad</p>
+                        <div class="evidence-preview" onclick="if(this.closest('.bitacora-card').getAttribute('data-editable') === 'true') document.getElementById('evidence-2').click()" id="preview-2">
+                            <div class="evidence-placeholder"><i class="fas fa-plus-circle" style="font-size: 2rem;"></i><span>Añadir Foto</span></div>
+                            <img id="img-evidence-2" src="" alt="Evidencia">
+                        </div>
+                        <input type="file" id="evidence-2" hidden accept="image/*" onchange="previewEvidence(this, 'preview-2', 'img-evidence-2')">
                     </div>
                 </div>
             </div>
